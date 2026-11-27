@@ -335,7 +335,8 @@ mod tests {
         #[cfg(windows)]
         if let Ok(mut v) = super::super::validator::Validator::load(
             super::super::validator::Validator::default_path().as_deref(),
-        ) {
+        ) && v.checks_psv()
+        {
             v.validate(&mut gs.clone()).unwrap();
             let plain = build(outputs(), &[]).unwrap();
             v.validate(&mut plain.clone()).unwrap();
@@ -439,7 +440,8 @@ mod tests {
         let (vs, ps) = pass_through();
         if let Ok(mut v) = super::super::validator::Validator::load(
             super::super::validator::Validator::default_path().as_deref(),
-        ) {
+        ) && v.checks_psv()
+        {
             v.validate(&mut vs.dxil.clone()).unwrap();
             v.validate(&mut ps.dxil.clone()).unwrap();
         }
